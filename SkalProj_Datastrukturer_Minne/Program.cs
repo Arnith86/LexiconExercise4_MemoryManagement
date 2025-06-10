@@ -181,17 +181,109 @@ namespace SkalProj_Datastrukturer_Minne
         /// </summary>
         static void ExamineQueue()
         {
-            /*
+
+			/*
+             * Övning 2: ExamineQueue()
+             * 
+             *  1.  Simulering av kö på "Papper". Kön går från vänster till höger.
+             *  
+             *      1. *Tom*
+             *      2. Kalle
+             *      3. Kalle, Greta
+             *      4. Greta
+             *      5. Greta, Stina
+             *      6. Stina
+             *      7. Stina, Olle .... and so on..
+             *  
+             *  2.  Queue implementation, har formaterat utskriften lite, så att ni enklare kan läsa.. 
+             *      
+             *      Please enter your chosen input: +kalle
+             *      Queue State: 
+             *      kalle
+             *      
+             *      Please enter your chosen input: +Greta
+             *      Queue State: 
+             *      kalle 
+             *      Greta
+             *      
+             *      Please enter your chosen input: -
+             *      kalle removed from the queue!
+             *      Queue State: 
+             *      Greta 
+             *      
+             *      Please enter your chosen input: +Stina
+             *      Queue State: 
+             *      Greta 
+             *      Stina
+             *      
+             *      Please enter your chosen input: -
+             *      Greta removed from the queue! 
+             *      Queue State: 
+             *      Stina
+             *      
+             *      Please enter your chosen input: +Olle
+             *      Queue State: 
+             *      Stina 
+             *      Olle
+             */
+
+			/*
              * Loop this method untill the user inputs something to exit to main menue.
              * Create a switch with cases to enqueue items or dequeue items
              * Make sure to look at the queue after Enqueueing and Dequeueing to see how it behaves
             */
-        }
 
-        /// <summary>
-        /// Examines the datastructure Stack
-        /// </summary>
-        static void ExamineStack()
+			Console.WriteLine("Enqueue or Dequeue elements to the Queue by using the bellow option before your chosen inputs.");
+			Console.WriteLine("+ : Enqueue input to the Queue.");
+			Console.WriteLine("- : Dequeues element to the list.");
+			Console.WriteLine("0 : Exit to main menu.");
+			Console.WriteLine("");
+
+            Queue<string> theQueue = new Queue<string>();
+			string input = string.Empty;
+
+			do
+			{
+				Console.Write("Please enter your chosen input: ");
+				input = Console.ReadLine();
+
+				char nav = input[0];
+				string value = input.Substring(1);
+
+				switch (nav)
+				{
+					case '+':
+						theQueue.Enqueue(value);
+						break;
+					case
+						'-':
+
+						if (theQueue.Count > 0)
+                            Console.WriteLine($"{theQueue.Dequeue()} removed from the queue!");
+						else
+							Console.WriteLine("Queue is empty. Try adding something first!");
+
+						break;
+					default:
+						Console.WriteLine("Your input must start with -, + or 0 to exit. \nTry again!");
+						break;
+				}
+
+				Console.WriteLine("Queue State: ");
+                foreach (var item in theQueue)
+                {
+					Console.WriteLine(item);
+                }
+
+			} while (input != "0");
+
+
+		}
+
+		/// <summary>
+		/// Examines the datastructure Stack
+		/// </summary>
+		static void ExamineStack()
         {
             /*
              * Loop this method until the user inputs something to exit to main menue.
