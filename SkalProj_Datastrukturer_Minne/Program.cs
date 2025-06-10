@@ -146,6 +146,8 @@ namespace SkalProj_Datastrukturer_Minne
             List<string> theList = new List<string>();
             string input = string.Empty;
 
+
+            // Loops until the user inputs "0" to exit to main menu.
             do
             {
 				Console.Write("Please enter your chosen input: ");
@@ -161,14 +163,14 @@ namespace SkalProj_Datastrukturer_Minne
                         break;
                     case
                         '-':
-                        
+                        // Makes sure that the value exist in the list before trying to remove it.
                         if (theList.Contains(value))
                             theList.Remove(value);
                         else
                             Console.WriteLine("No such word in the list. Try again!");
                             
                         break;
-                    default:
+					default:
                         Console.WriteLine("Your input must start with -, + or 0 to exit. \nTry again!");
                         break;
                 }
@@ -242,6 +244,7 @@ namespace SkalProj_Datastrukturer_Minne
             Queue<string> theQueue = new Queue<string>();
 			string input = string.Empty;
 
+			// Loops until the user inputs "0" to exit to main menu.
 			do
 			{
 				Console.Write("Please enter your chosen input: ");
@@ -257,13 +260,12 @@ namespace SkalProj_Datastrukturer_Minne
 						break;
 					case
 						'-':
-
+                        // Checks if the queue has any elements before trying to dequeue.
 						if (theQueue.Count > 0)
                             Console.WriteLine($"{theQueue.Dequeue()} removed from the queue!");
 						else
 							Console.WriteLine("Queue is empty. Try adding something first!");
-
-						break;
+                        break;
 					default:
 						Console.WriteLine("Your input must start with -, + or 0 to exit. \nTry again!");
 						break;
@@ -285,14 +287,72 @@ namespace SkalProj_Datastrukturer_Minne
 		/// </summary>
 		static void ExamineStack()
         {
-            /*
-             * Loop this method until the user inputs something to exit to main menue.
-             * Create a switch with cases to push or pop items
-             * Make sure to look at the stack after pushing and and poping to see how it behaves
-            */
-        }
 
-        static void CheckParanthesis()
+			/*
+		     * Övning 3: ExaminStack()
+		     * 
+		     *  1.  Simulering av kö på "Papper". Kön går från vänster till höger.
+		     *  
+		     *      1. *Tom*
+		     *      2. Kalle
+		     *      3. Greta, Kalle 
+		     *      4. Kalle 
+		     *      5. Stina, Kalle
+		     *      6. Kalle
+		     *      7. Olle, Kalle.... and so on..
+		     *      
+		     *      Det blir inget flöde i "kön" utan stackars Kalle får stå kvar längst ner i stacken tills det slutar fylla på i "kassan"
+		     **/
+
+			/*
+			 * Loop this method until the user inputs something to exit to main menue.
+			 * Create a switch with cases to push or pop items
+			 * Make sure to look at the stack after pushing and and poping to see how it behaves
+			*/
+			
+            Console.WriteLine("String reverser, start input with bellow option before your chosen inputs.");
+			Console.WriteLine("+ : starts the reverser.");
+			Console.WriteLine("0 : Exit to main menu.");
+			Console.WriteLine("");
+
+			Stack<string> theStack = new Stack<string>();
+			string input = string.Empty;
+
+			// Loops until the user inputs "0" to exit to main menu.
+			do
+			{
+				Console.Write("Please enter what you want to reverse: ");
+				input = Console.ReadLine();
+
+				char nav = input[0];
+				string value = input.Substring(1);
+
+				switch (nav)
+				{
+					case '+':
+                        // Iterates through the string and pushes each character onto the stack.
+                        for (int i = 0; i < value.Count(); i++)
+                            theStack.Push(value[i].ToString());
+					    break;
+                    case '0':
+                        return;
+					default:
+						Console.WriteLine("Your input must start with -, + or 0 to exit. \nTry again!");
+						break;
+				}
+
+				Console.Write("Input reversed: ");
+				// As long as there are elements in the stack, pop them and print them.
+                while(theStack.Count > 0)
+                    Console.Write(theStack.Pop());
+				
+                Console.WriteLine("");
+
+			} while (input != "0");
+
+		}
+
+		static void CheckParanthesis()
         {
             /*
              * Use this method to check if the paranthesis in a string is Correct or incorrect.
