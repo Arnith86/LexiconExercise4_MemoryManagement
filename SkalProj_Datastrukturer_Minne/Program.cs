@@ -106,7 +106,7 @@ namespace SkalProj_Datastrukturer_Minne
         /// </summary>
         static void ExamineList()
         {
-            /*
+			/*
              * Loop this method untill the user inputs something to exit to main menue.
              * Create a switch statement with cases '+' and '-'
              * '+': Add the rest of the input to the list (The user could write +Adam and "Adam" would be added to the list)
@@ -116,12 +116,64 @@ namespace SkalProj_Datastrukturer_Minne
              * Below you can see some inspirational code to begin working.
             */
 
-            //List<string> theList = new List<string>();
-            //string input = Console.ReadLine();
-            //char nav = input[0];
-            //string value = input.substring(1);
+			/*
+             * Övning 1: ExamineList()
+             * 
+             *  2.  När vi startar med 0 element i listan har arrayen storlek 0. Så fort det första elementet sätts till ökan kapaciteten till 4.
+             *      när vi överstiger det värdet (fler än 4 element) så förstoras storleken av arrayen till 8. Samma sak händer när vi överstiger
+             *      8 element. Svaret är att storleken ändras när vi överstiger det nuvarande storleken av arrayen.
+             *  
+             *  3.  Kapaciteten ökas binärt från storleken 4. Dvs att vi först har 4 element, sedan 8, 16, 32, 64 och så vidare.
+             *  
+             *  4.  En Array är en referens typ där man måste ange hur stor arrayen ska vara vid skapandet av arrayen. Skulle vi öka storleken 
+             *      på arrayen i takt med elementen så måste vi först skapa en ny array med +1 i storlek och sedan kopiera över samtliga värden
+             *      från den originella arrayen. Detta för varje förstoring, vilket är en dyr process.
+             *      
+             *  5.  Nej, storleken förblir detsamma vid en förminskning. Den bebehåller där med dess största storlek oavvsätt hur många element
+             *      det finns i Arrayen.
+             * 
+             * 
+             */
 
-            //switch(nav){...}
+
+			Console.WriteLine("Add or subtract elements to the list by using the bellow option before your chosen inputs.\n " +
+                "Only single words will be registered.");
+			Console.WriteLine("+ : Adds input to the list.");
+			Console.WriteLine("- : Removes inputted value from the list, if an exact match is found.");
+			Console.WriteLine("0 : Exit to main menu.");
+			Console.WriteLine("");
+
+            List<string> theList = new List<string>();
+            string input = string.Empty;
+
+            do
+            {
+				Console.Write("Please enter your chosen input: ");
+                input = Console.ReadLine();
+
+                char nav = input[0];
+                string value = input.Substring(1);
+
+                switch (nav)
+                {
+                    case '+':
+                        theList.Add(value);
+                        break;
+                    case
+                        '-':
+                        
+                        if (theList.Contains(value))
+                            theList.Remove(value);
+                        else
+                            Console.WriteLine("No such word in the list. Try again!");
+                            
+                        break;
+                    default:
+                        Console.WriteLine("Your input must start with -, + or 0 to exit. \nTry again!");
+                        break;
+                }
+
+            } while (input != "0");
         }
 
         /// <summary>
