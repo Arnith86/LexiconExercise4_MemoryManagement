@@ -1,5 +1,49 @@
 ﻿using System;
 
+/**
+ * Questions and Exercises:
+ * 
+ * Frågor:
+ * 1. Hur fungerar stacken och heapen? Förklara gärna med exempel eller skiss på dess grundläggande funktion?
+ *
+ *    En stack har en fast storlek och har en LIFO-struktur (Last In, First Out), vilket betyder att det som sist lades på stacken 
+ *    kommer vara det första som hanteras. Det går inte att komma åt ett element i stacken utan att först ta bort alla element ovanför det.
+ *    
+ *    Medan heapen har en dynamisk storlek, där dess struktur gör att alla element är nåbara direkt via dess referens. 
+ *    Detta är alltså olikt heap-strukturen som används i algoritmer, som bäst beskrivs som ett träd där element är länkade till varandra.
+ *    
+ *    2. Vad är Value Types respektive Reference Types och vad skiljer dem åt?
+ *    
+ *    Value types är datatyper som lagras direkt i minnet (stacken). Detta betyder att de måste vara deklarerade innan de används. 
+ *    Det finns undantag för detta dock. Deklareras de i en metod så lagras de i stacken som nämnt innan, men om de deklareras i en klass 
+ *    så lagras de i heapen. Ett par exempel på dessa typer är int, double, char, struct.
+ *    
+ *    Reference types är datatyper som lagras i heapen, medan dess referens är lagrad i stacken.
+ *    Ett par exempel på dessa typer är string, class, object, interface och delegater.
+ *    
+ *    3. Följande metoder (se bild nedan) genererar olika svar. Den första returnerar 3, den andra returnerar 4, varför?
+ *    
+ *    ReturnValue()
+ *    
+ *    int är, som precis nämnt, en value type, vilket innebär att den lagras direkt på stacken. 
+ *    När x och y deklareras i metoden så skapas de därför som separata instanser i stacken. 
+ *    Vi ser att x = 3 och y = x, vilket betyder att y tar det direkta värdet av x som då är 3. 
+ *    Värdet av y ändras sedan till 4. Men då de är separata instanser så påverkas inte x av den ändringen, 
+ *    vilket gör att x fortfarande har värdet 3 när metoden returnerar.
+ *    
+ *    ReturnValue2()
+ *    
+ *    Här skapas istället två instanser av klassen MyInt. En klass är, som nämnt, en referenstyp, vilket innebär att 
+ *    det enbart är referensen till klassinstansen som lagras i stacken, medan själva instansen lagras i heapen. 
+ *    Det vi ser är att x.MyValue får värdet 3 och sedan får y en kopia av referensen till x.
+ *    Den har alltså bara tillgång till minnesadressen till instansen – det är inte en ny instans. 
+ *    Vilket då betyder att när y.MyValue ändras till 4 så ändrar det värdet i instansen som både x och y refererar till. 
+ *    Därför returnerar metoden 4 och inte 3 som i första exemplet.
+ * 
+ **/
+
+
+
 namespace SkalProj_Datastrukturer_Minne
 {
     class Program
