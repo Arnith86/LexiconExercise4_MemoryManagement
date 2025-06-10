@@ -132,7 +132,7 @@ namespace SkalProj_Datastrukturer_Minne
              *  5.  Nej, storleken förblir detsamma vid en förminskning. Den bebehåller där med dess största storlek oavvsätt hur många element
              *      det finns i Arrayen.
              * 
-             * 
+             *  6.  Det är fördelaktigt att använda en egendefinierad array, när vi vet att storleken på innehållet kommer att förbli detsamma. 
              */
 
 
