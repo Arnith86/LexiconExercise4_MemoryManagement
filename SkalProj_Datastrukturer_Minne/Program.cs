@@ -61,11 +61,12 @@ namespace SkalProj_Datastrukturer_Minne
 
             while (true)
             {
-                Console.WriteLine("Please navigate through the menu by inputting the number \n(1, 2, 3 ,4, 0) of your choice"
+                Console.WriteLine("Please navigate through the menu by inputting the number \n(1, 2, 3 ,4 ,5 ,0) of your choice"
                     + "\n1. Examine a List"
                     + "\n2. Examine a Queue"
                     + "\n3. Examine a Stack"
                     + "\n4. CheckParenthesis"
+                    + "\n5. Recursive Even"
                     + "\n0. Exit the application");
                 char input = ' '; //Creates the character input to be used with the switch-case below.
                 try
@@ -91,6 +92,9 @@ namespace SkalProj_Datastrukturer_Minne
                     case '4':
                         CheckParanthesis();
                         break;
+                    case '5':
+                        RecursiveMethods();
+                        break;
                     /*
                      * Extend the menu to include the recursive 
                      * and iterative exercises.
@@ -105,10 +109,12 @@ namespace SkalProj_Datastrukturer_Minne
             }
         }
 
-        /// <summary>
-        /// Examines the datastructure List
-        /// </summary>
-        static void ExamineList()
+
+
+		/// <summary>
+		/// Examines the datastructure List
+		/// </summary>
+		static void ExamineList()
         {
 			/*
              * Loop this method untill the user inputs something to exit to main menue.
@@ -356,6 +362,9 @@ namespace SkalProj_Datastrukturer_Minne
 
 		}
 
+        /// <summary>
+        /// Checks if a string is balanced in regards to parentheses. 
+        /// </summary>
 		static void CheckParanthesis()
         {
 			/*
@@ -530,6 +539,110 @@ namespace SkalProj_Datastrukturer_Minne
 		{
 			return value == ')' || value == '}' || value == ']';
 		}
+
+
+
+        /*
+         * Övning 5 Rekursion 
+         *  
+         *  1.  
+         *      RecursiveOdd(1):               1  
+         *                                     ^
+         *      start       n = 1: 1 = 1 => return 1
+         *      
+         *      
+         *      RecursiveOdd(3):                                        5
+         *                                                              ^
+         *      start =>    n = 3: RecursiveOdd(3 - 1)              return (3+2)      
+         *                          v                                   ^  
+         *                  n = 2: RecursiveOdd(2 - 1)              return (1+2)    
+         *                          v                                   ^
+         *                  n = 1: 1 = 1                =>          return 1
+         *
+         *      
+         *      RecursiveOdd(5):                                        9
+         *                                                              ^
+         *      start =>    n = 5: RecursiveOdd(5 - 1)              return (7+2)      
+         *                          v                                   ^  
+         *                  n = 4: RecursiveOdd(4 - 1)              return (5+2)    
+         *                          v                                   ^
+         *                  n = 3: RecursiveOdd(3 - 1)              return (3+2)        
+         *                          v                                   ^  
+         *                  n = 2: RecursiveOdd(2 - 1)              return (1+2)
+         *                          v                                   ^  
+         *                  n = 1: 1 = 1                =>          return 1
+         */
+
+        private static void RecursiveMethods()
+        {
+            Console.WriteLine("Chose between the RecursiveEven and Fibonacci");
+            Console.WriteLine("+ : For RecursiveEven, start with + then supply which n:th even number you want to find.");
+            Console.WriteLine("- : For Fibonacci, start with - then supply which n:th recursion number you want to find the value for.");
+            Console.WriteLine("0 : Exit to main menu.");
+            Console.WriteLine("");
+
+            string input = string.Empty;
+
+            // Loops until the user inputs "0" to exit to main menu.
+            do
+            {
+                Console.Write("Please enter your chosen input: ");
+                input = Console.ReadLine();
+
+                char nav = input[0];
+                string value = input.Substring(1);
+
+                if ((int.TryParse(value, out int n)) && n >= 0)
+                {
+
+                    switch (nav)
+                    {
+                        case 'e':
+							Console.WriteLine($"The value is {RecursiveEven(n)}"); 
+                            break;
+                        case '-':
+                            Console.WriteLine($"The value is {FibonacciRecursion(n)}");
+                            break;
+                        default:
+                            Console.WriteLine("Your input must start with -, + or 0 to exit. \nTry again!");
+                            break;
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("Neither recursion can handle chars or negative numbers. Try again!");
+                }
+
+            } while (input != "0");
+        }
+
+		/// <summary>
+		/// Finds the n:th even value.
+		/// </summary>
+		/// <param name="n">Int value representing which number to calculate.</param>
+		/// <returns>An int with the n:th even value.</returns>
+		private static int RecursiveEven(int n)
+		{
+            if (n == 1) return 0;
+            return RecursiveEven(n - 1) + 2;
+		}
+
+        /*I know that a dynamic programing versions is much more efficient.*/
+		/// <summary>
+		/// Finds the value on the n:th recursion of the Fibonacci sequence. 
+		/// </summary>
+		/// <param name="n">How many recursions to perform.</param>
+		/// <returns>The int with the result of the n:th recursion of the Fibonacci sequence.</returns>
+		private static int FibonacciRecursion(int n)
+		{
+			// in the Fibonacci sequence 0 and 1 are special cases which results in themselves.  
+			if (n <= 1) return n;
+            
+            return FibonacciRecursion(n - 1) + FibonacciRecursion(n - 2);
+		}
+
+
+       
 	}
 }
 
