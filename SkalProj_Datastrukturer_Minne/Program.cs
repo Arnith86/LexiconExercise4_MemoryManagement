@@ -159,12 +159,13 @@ namespace SkalProj_Datastrukturer_Minne
 			// Loops until the user inputs "0" to exit to main menu.
 			do
             {
-				char nav = '.';
+				char nav = '.'; // Temp value set.
                 string value = string.Empty;
 
 				Console.Write("Please enter your chosen input: ");
                 input = Console.ReadLine();
                 
+                // Handles empty input
                 if (input.Count() >= 2)
                 {
                     nav = input[0];
@@ -274,11 +275,18 @@ namespace SkalProj_Datastrukturer_Minne
 			// Loops until the user inputs "0" to exit to main menu.
 			do
 			{
+				char nav = '.'; // Temp value set.
+				string value = string.Empty;
+
 				Console.Write("Please enter your chosen input: ");
 				input = Console.ReadLine();
 
-				char nav = input[0];
-				string value = input.Substring(1);
+				// Handles empty input
+				if (input.Count() >= 2)
+				{
+					nav = input[0];
+					value = input.Substring(1);
+				}
 
 				switch (nav)
 				{
@@ -287,26 +295,32 @@ namespace SkalProj_Datastrukturer_Minne
 						break;
 					case
 						'-':
-                        // Checks if the queue has any elements before trying to dequeue.
+						// Checks if the queue has any elements before trying to dequeue.
 						if (theQueue.Count > 0)
-                            Console.WriteLine($"{theQueue.Dequeue()} removed from the queue!");
+							Console.WriteLine($"{theQueue.Dequeue()} removed from the queue!");
 						else
 							Console.WriteLine("Queue is empty. Try adding something first!");
-                        break;
+						break;
 					default:
-						Console.WriteLine("Your input must start with -, + or 0 to exit. \nTry again!");
+						Console.WriteLine("Your input must start with -, + and then a contain text input, or 0 to exit. \nTry again!");
 						break;
 				}
 
-				Console.WriteLine("Queue State: ");
-                foreach (var item in theQueue)
-                {
-					Console.WriteLine(item);
-                }
+				DisplayIEnumerableContent(message: "Queue State: ", theQueue);
 
 			} while (input != "0");
 
 
+		}
+
+		private static void DisplayIEnumerableContent(
+            string message, 
+            IEnumerable<string> theQueue)
+		{
+			Console.WriteLine(message);
+			
+            foreach (var item in theQueue)
+				Console.WriteLine(item);
 		}
 
 		/// <summary>
@@ -348,12 +362,19 @@ namespace SkalProj_Datastrukturer_Minne
 			// Loops until the user inputs "0" to exit to main menu.
 			do
 			{
+				char nav = '.'; // Temp value set.
+				string value = string.Empty;
+
 				Console.Write("Please enter what you want to reverse: ");
 				input = Console.ReadLine();
 
-				char nav = input[0];
-				string value = input.Substring(1);
-
+				// Handles empty input
+				if (input.Count() >= 2)
+				{
+					nav = input[0];
+					value = input.Substring(1);
+				}
+				
 				switch (nav)
 				{
 					case '+':
@@ -364,12 +385,13 @@ namespace SkalProj_Datastrukturer_Minne
                     case '0':
                         return;
 					default:
-						Console.WriteLine("Your input must start with -, + or 0 to exit. \nTry again!");
+						Console.WriteLine("Your input must start with -, + and then a contain text input, or 0 to exit. \nTry again!");
 						break;
 				}
 
 				Console.Write("Input reversed: ");
 				// As long as there are elements in the stack, pop them and print them.
+                
                 while(theStack.Count > 0)
                     Console.Write(theStack.Pop());
 				
@@ -435,12 +457,19 @@ namespace SkalProj_Datastrukturer_Minne
 			// Loops until the user inputs "0" to exit to main menu.
 			do
 			{
-                Console.Write("Please enter the string you want to check: ");
+				char nav = '.'; // Temp value set.
+				string value = string.Empty;
+
+				Console.Write("Please enter the string you want to check: ");
 				input = Console.ReadLine();
 
-				char nav = input[0];
-				string value = input.Substring(1);
-
+				// Handles empty input
+				if (input.Count() >= 2)
+				{
+					nav = input[0];
+					value = input.Substring(1);
+				}
+                				
 				switch (nav)
 				{
 					case '+':
@@ -449,7 +478,7 @@ namespace SkalProj_Datastrukturer_Minne
 					case '0':
 						return;
 					default:
-						Console.WriteLine("Your input must start with -, + or 0 to exit. \nTry again!");
+						Console.WriteLine("Your input must start with -, + and then a some text input, or 0 to exit. \nTry again!");
 						break;
 				}
 
@@ -603,12 +632,19 @@ namespace SkalProj_Datastrukturer_Minne
             // Loops until the user inputs "0" to exit to main menu.
             do
             {
-                Console.Write("Please enter your chosen input: ");
-                input = Console.ReadLine();
+				char nav = '.'; // Temp value set.
+				string value = string.Empty;
 
-                char nav = input[0];
-                string value = input.Substring(1);
+				Console.Write("Please enter your chosen input: ");
+				input = Console.ReadLine();
 
+				// Handles empty input
+				if (input.Count() >= 2)
+				{
+					nav = input[0];
+					value = input.Substring(1);
+				}
+                
                 if ((int.TryParse(value, out int n)) && n >= 0)
                 {
 
@@ -715,12 +751,19 @@ namespace SkalProj_Datastrukturer_Minne
 			// Loops until the user inputs "0" to exit to main menu.
 			do
 			{
+				char nav = '.'; // Temp value set.
+				string value = string.Empty;
+
 				Console.Write("Please enter your chosen input: ");
 				input = Console.ReadLine();
 
-				char nav = input[0];
-				string value = input.Substring(1);
-
+				// Handles empty input
+				if (input.Count() >= 2)
+				{
+					nav = input[0];
+					value = input.Substring(1);
+				}
+				
 				if ((int.TryParse(value, out int n)) && n >= 0)
 				{
 
