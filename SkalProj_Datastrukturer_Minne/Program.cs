@@ -1,4 +1,8 @@
 ﻿using System;
+using System.Text.RegularExpressions;
+
+
+
 
 /**
  * Questions and Exercises:
@@ -354,14 +358,178 @@ namespace SkalProj_Datastrukturer_Minne
 
 		static void CheckParanthesis()
         {
-            /*
+			/*
              * Use this method to check if the paranthesis in a string is Correct or incorrect.
              * Example of correct: (()), {}, [({})],  List<int> list = new List<int>() { 1, 2, 3, 4 };
              * Example of incorrect: (()]), [), {[()}],  List<int> list = new List<int>() { 1, 2, 3, 4 );
              */
+			
+            /*
+             *  Övning 4: CheckParenthesis()
+             *      
+             *      1.  En lösning skulle kunna vara att iterera igenom hela strängen och spara alla instanser av parenteser i en lista, och sedan räkna hur 
+             *          många instanser av varje sort det finns. Är alla jämna så är strängen välformad. Ett stort problem med den lösningen är att det inte 
+             *          utesluter att parenteser är placerade fel, som i detta exempel: })][({.
+             *          
+             *          Därför måste vi även tänka på parenteser som "par" – en startparentes och en matchande slutparentes. Problemet vi möter då är att
+             *          vi möter startparenteser i "exekveringsordning", medan vi möter slutparenteser i omvänd ordning. Om vi tar detta exempel, [({})], 
+             *          för att illustrera:
+             *          
+             *          start     slut       
+             *            [         }
+             *            (         )
+             *            {         ]
+             * 
+             *          Den lösning jag skulle implementera använder sig av två olika strukturer, Queue och Stack, för att hantera just det problemet. 
+             *          När vi itererar igenom en sträng lagrar vi startparenteserna i en Stack och slutparenteserna i en Queue. 
+             *          
+             *          
+             *          Originalordning:      Stack Pop    /   Queue Dequeue-ordning:
+             *          start     slut           start         slut       
+             *            [         }               {           }
+             *            (         )               (           )
+             *            {         ]               [           ]
+             *          
+             *          På så vis matchas start- och slutparenteser. Gör de inte det så vet vi att det inte är en välformad delmängd/sträng.
+             *          Så fort både Queue:n och Stack:en har lika många element startas en kontroll av den delmängd av start- och slutparenteser som 
+             *          hittats. När båda har lika många element betyder det att de uppfyller kravet för vad som kan klassas som en välformad delmängd 
+             *          av parenteser. Beroende på om detta test har godkänts så fortsätter iterationen av strängen för att hitta möjliga fler mönster.
+             */
+		
 
+			Console.WriteLine("Balanced Parentheses. Supply your input and this algorithm will check if all parentheses have a matching start and finish.");
+			Console.WriteLine("                      Start the string with '+'.");
+			Console.WriteLine("+ : starts the balanced parentheses check.");
+			Console.WriteLine("0 : Exit to main menu.");
+			Console.WriteLine("");
+
+			
+			string input = string.Empty;
+
+			// Loops until the user inputs "0" to exit to main menu.
+			do
+			{
+                Console.Write("Please enter the string you want to check: ");
+				input = Console.ReadLine();
+
+				char nav = input[0];
+				string value = input.Substring(1);
+
+				switch (nav)
+				{
+					case '+':
+                        DisplayBalancedParenthesesResult(value); 
+                        break;
+					case '0':
+						return;
+					default:
+						Console.WriteLine("Your input must start with -, + or 0 to exit. \nTry again!");
+						break;
+				}
+
+			} while (input != "0");
+		}
+
+		private static void DisplayBalancedParenthesesResult(string value)
+		{
+			Console.Write("Are the parentheses balanced: ");
+			Console.Write(IsParenthesesBalancedInCompleteString(value));
+			Console.WriteLine("");
+		}
+
+		private static bool IsSetOfParenthesesBalanced(
+			Stack<char> startParentheses,
+			Queue<char> endParentheses)
+		{
+			bool isBalanced = true;
+
+			// As long as there are elements in the collections retrieve next elements and see if it 
+            // is balanced parentheses. 
+			if (startParentheses.Count == endParentheses.Count)
+			{
+				while (startParentheses.Count > 0)
+				{
+					isBalanced = IsMatchingParentheses(
+						startParentheses.Pop(),
+						endParentheses.Dequeue()
+					);
+
+					if (!isBalanced) break;
+				}
+			}
+			else
+			{
+				isBalanced = false;
+			}
+
+            return isBalanced;
+		}
+	
+        private static bool IsParenthesesBalancedInCompleteString(string value)
+		{
+            bool isBalanced = true;
+			Stack<char> startParentheses = new Stack<char>();
+			Queue<char> endParentheses = new Queue<char>();
+
+			for (int i = 0; i < value.Length; i++)
+			{
+				if (IsStartParentheses(value[i]))
+                {
+                    startParentheses.Push(value[i]);
+                }
+				else if (IsEndParentheses(value[i]))
+                {
+                    endParentheses.Enqueue(value[i]);
+                }
+
+                // If the same amount of start and end parentheses have been found, then we have found what should be a balanced set
+                // of parentheses and can check if it is true. If not then a set of parentheses are not balanced which makes the whole
+                // string not balanced. 
+                if (startParentheses.Count == endParentheses.Count)
+                {
+                    if (isBalanced = IsSetOfParenthesesBalanced(startParentheses, endParentheses))
+                        continue;
+                    else 
+                        break;
+                } 
+
+			}
+
+            // If there are still parentheses that have not been handled, then the string is not balanced
+            if (startParentheses.Count > 0 || endParentheses.Count > 0)
+            {
+				Console.WriteLine("");
+            }
+
+            return isBalanced;
+		}
+
+		private static bool IsMatchingParentheses(char start, char end)
+		{
+            switch (start)
+            {
+                case '(':
+                    return ')' == end;
+                case '{':
+					return '}' == end;
+                case '[':
+					return ']' == end;
+
+				default:
+					Console.WriteLine("No start parentheses found..");
+                    return false; 
+            }
         }
 
-    }
+		private static bool IsStartParentheses(char value)
+		{
+            return value == '(' || value == '{' || value == '['; 
+		}
+
+		private static bool IsEndParentheses(char value)
+		{
+			return value == ')' || value == '}' || value == ']';
+		}
+	}
 }
 
