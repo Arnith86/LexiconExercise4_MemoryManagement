@@ -683,7 +683,12 @@ namespace SkalProj_Datastrukturer_Minne
             return RecursiveEven(n - 1) + 2;
 		}
 
-        /*I know that a dynamic programing versions is much more efficient.*/
+        /* 
+         * I know that a dynamic programing versions is much more efficient. However, I dont remember 
+         * it by heart and I reasoned that this was not the point of this exercise. Therefore you get 
+         * the inefficient version :).
+         */
+
 		/// <summary>
 		/// Finds the value on the n:th recursion of the Fibonacci sequence. 
 		/// </summary>
