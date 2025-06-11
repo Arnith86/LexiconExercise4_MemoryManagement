@@ -155,43 +155,60 @@ namespace SkalProj_Datastrukturer_Minne
 
             List<string> theList = new List<string>();
             string input = string.Empty;
-
-
-            // Loops until the user inputs "0" to exit to main menu.
-            do
+            
+			// Loops until the user inputs "0" to exit to main menu.
+			do
             {
+				char nav = '.';
+                string value = string.Empty;
+
 				Console.Write("Please enter your chosen input: ");
                 input = Console.ReadLine();
-
-                char nav = input[0];
-                string value = input.Substring(1);
+                
+                if (input.Count() >= 2)
+                {
+                    nav = input[0];
+                    value = input.Substring(1);
+                }
 
                 switch (nav)
                 {
                     case '+':
                         theList.Add(value);
+                        DisplayCountAndCapacity(theList);
                         break;
                     case
                         '-':
                         // Makes sure that the value exist in the list before trying to remove it.
                         if (theList.Contains(value))
+                        {
                             theList.Remove(value);
+							DisplayCountAndCapacity(theList);
+						}
                         else
                             Console.WriteLine("No such word in the list. Try again!");
                             
                         break;
 					default:
-                        Console.WriteLine("Your input must start with -, + or 0 to exit. \nTry again!");
+                        Console.WriteLine("Your input must start with -, + and then a contain text input, or 0 to exit. \nTry again!");
                         break;
                 }
 
             } while (input != "0");
         }
 
-        /// <summary>
-        /// Examines the datastructure Queue
-        /// </summary>
-        static void ExamineQueue()
+		private static void DisplayCountAndCapacity(List<string> theList)
+		{
+			Console.WriteLine("");
+			Console.WriteLine($"The current number of elements in theList: {theList.Count}");
+			Console.WriteLine($"The current capacity of in theList: {theList.Capacity}");
+			Console.WriteLine("");
+		}
+
+		/// <summary>
+		/// Examines the datastructure Queue
+		/// </summary>
+		static void ExamineQueue()
         {
 
 			/*
