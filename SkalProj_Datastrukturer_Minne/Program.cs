@@ -61,12 +61,13 @@ namespace SkalProj_Datastrukturer_Minne
 
             while (true)
             {
-                Console.WriteLine("Please navigate through the menu by inputting the number \n(1, 2, 3 ,4 ,5 ,0) of your choice"
+                Console.WriteLine("Please navigate through the menu by inputting the number \n(1, 2, 3 ,4 ,5 ,6 ,0) of your choice"
                     + "\n1. Examine a List"
                     + "\n2. Examine a Queue"
                     + "\n3. Examine a Stack"
                     + "\n4. CheckParenthesis"
-                    + "\n5. Recursive Even"
+                    + "\n5. Recursive Methods"
+                    + "\n6  Iterative Methods"
                     + "\n0. Exit the application");
                 char input = ' '; //Creates the character input to be used with the switch-case below.
                 try
@@ -95,10 +96,9 @@ namespace SkalProj_Datastrukturer_Minne
                     case '5':
                         RecursiveMethods();
                         break;
-                    /*
-                     * Extend the menu to include the recursive 
-                     * and iterative exercises.
-                     */
+                    case '6':
+                        IterativeMethods();
+                        break;
                     case '0':
                         Environment.Exit(0);
                         break;
@@ -147,7 +147,7 @@ namespace SkalProj_Datastrukturer_Minne
 
 
 			Console.WriteLine("Add or subtract elements to the list by using the bellow option before your chosen inputs.\n " +
-                "Only single words will be registered.");
+                              "Only single words will be registered.");
 			Console.WriteLine("+ : Adds input to the list.");
 			Console.WriteLine("- : Removes inputted value from the list, if an exact match is found.");
 			Console.WriteLine("0 : Exit to main menu.");
@@ -320,7 +320,7 @@ namespace SkalProj_Datastrukturer_Minne
 			 * Make sure to look at the stack after pushing and and poping to see how it behaves
 			*/
 			
-            Console.WriteLine("String reverser, start input with bellow option before your chosen inputs.");
+            Console.WriteLine("String reverser, start input with below option before your chosen inputs.");
 			Console.WriteLine("+ : starts the reverser.");
 			Console.WriteLine("0 : Exit to main menu.");
 			Console.WriteLine("");
@@ -597,8 +597,11 @@ namespace SkalProj_Datastrukturer_Minne
 
                     switch (nav)
                     {
-                        case 'e':
-							Console.WriteLine($"The value is {RecursiveEven(n)}"); 
+                        case '+':
+                            if(n > 0)
+							    Console.WriteLine($"The value is {RecursiveEven(n)}");
+                            else
+                                Console.WriteLine("A number higher then 0 must be inputted, try again!");
                             break;
                         case '-':
                             Console.WriteLine($"The value is {FibonacciRecursion(n)}");
@@ -642,7 +645,124 @@ namespace SkalProj_Datastrukturer_Minne
 		}
 
 
-       
+		/*
+         * Övning 6: Iteration 
+         *  
+         *  IterativeOdd(1):                 IterativeOdd(3):                    IterativeOdd(5):
+         *  ------------------              ------------------                  ------------------
+         *  start n = 1                     start n = 3                         start  n = 5
+         *        result = 1                      result = 1                           result = 1
+         *        
+         *        i = 0:                          i = 0:                               i = 0:
+         *        0 < 0 = false => return 1       0 < 2 = true                         0 < 4 = true
+         *                                        result = 1 + 2                       result = 1 + 2
+         *                                        
+         *                                        i = 1:                               i = 1:
+         *                                        1 < 2 = true                         1 < 4 = true
+         *                                        result = 3 + 2                       result = 3 + 2
+         *                                        
+         *                                        i = 2:                               i = 2:
+         *                                        2 < 2 = false => return 5            2 < 4 = true
+         *                                                                             result = 5 + 2
+         *                                        
+         *                                                                             i = 3:
+         *                                                                             3 < 4 = true
+         *                                                                             result = 7 + 2
+         *                                                                             
+         *                                                                             i = 4:
+         *                                                                             4 < 4 = false => return 9
+         *                                                                             
+         *  Svar på frågan:
+         *  
+         *  De iterativa versionerna av dessa metoder är betydligt mer minnesvänliga, då de arbetar med enstaka värdetyper. 
+         *  Metoden initieras tillsammans med två till tre variabler vars värden uppdateras fram till det slutliga resultatet.
+         *  
+         *  Med de rekursiva versionerna är det däremot annorlunda, även om det finns vissa likheter. Varje gång en rekursion sker 
+         *  skapas ett nytt stack-frame i anropsstacken, där både referenser och värdetyper (i detta fall int-variablerna) lagras. 
+         *  Det innebär att för varje steg i rekursionen skapas ett nytt set av int-variabler. Dessa stackramar tas inte bort förrän 
+         *  varje specifik instans av rekursionen returnerar ett värde, och därmed betraktas som avslutad och kan tas bort från stacken.
+         *  
+         */
+
+
+		private static void IterativeMethods()
+		{
+			Console.WriteLine("Chose between the IterativeEven and Fibonacci");
+			Console.WriteLine("+ : For IterativeEven, start with + then supply which n:th even number you want to find.");
+			Console.WriteLine("- : For Fibonacci, start with - then supply which n:th recursion number you want to find the value for.");
+			Console.WriteLine("0 : Exit to main menu.");
+			Console.WriteLine("");
+
+			string input = string.Empty;
+
+			// Loops until the user inputs "0" to exit to main menu.
+			do
+			{
+				Console.Write("Please enter your chosen input: ");
+				input = Console.ReadLine();
+
+				char nav = input[0];
+				string value = input.Substring(1);
+
+				if ((int.TryParse(value, out int n)) && n >= 0)
+				{
+
+					switch (nav)
+					{
+						case '+':
+							if (n > 0)
+							    Console.WriteLine($"The value is {IterativeEven(n)}");
+							else
+								Console.WriteLine("A number higher then 0 must be inputted, try again!");
+							break;
+						case '-':
+							Console.WriteLine($"The value is {FibonacciIteration(n)}");
+							break;
+						default:
+							Console.WriteLine("Your input must start with -, + or 0 to exit. \nTry again!");
+							break;
+					}
+				}
+				else
+				{
+					Console.WriteLine("Neither iteration can handle chars or negative numbers. Try again!");
+				}
+
+			} while (input != "0");
+		}
+		
+        private static int IterativeEven(int n)
+		{
+            int result = 0;
+
+            for (int i = 0; i < n -1; i++)
+                result += 2;
+
+            return result;
+		}
+		
+		private static int FibonacciIteration(int n)
+		{
+            // in the Fibonacci sequence 0 and 1 are special cases which results in themselves.  
+			if (n <= 1) return n;
+            
+            int result = 0;
+
+			int Fibonacci1 = 0;
+            int Fibonacci2 = 1;
+            
+
+			for (int i = 1; i < n; i++)
+            {
+                result = Fibonacci1 + Fibonacci2;
+
+                // sets up n-1 and n-2, for next sequence.
+                (Fibonacci1, Fibonacci2) = (Fibonacci2, result);
+            } 
+
+			return result;
+		}
+
 	}
 }
 
